@@ -96,14 +96,18 @@ export default defineConfig({
       dts: 'src/types/auto-import.d.ts', // 类型提示文件
     }),
     Components({
+      dirs: [
+        'src/components',
+      ],
       extensions: ['vue', 'md', 'svg'],
+      collapseSamePrefixes: true,
       // 启用目录名作为组件的命名空间。避免不同目录下同名组件的冲突。
       directoryAsNamespace: true,
       // 自动生成 TypeScript 类型声明文件。默认会在项目根目录生成 components.d.ts。提供组件导入的类型提示，避免 TS 报错。
       // dts: true,
       dts: 'src/types/auto-import-components.d.ts',
       // 指定全局组件的命名空间。例如 global::MyComponent 会从全局命名空间解析。适用于无需手动导入的全局组件。
-      globalNamespaces: ['global'],
+      // globalNamespaces: ['global'],
       include: [/\.vue($|\?)/, /\.md($|\?)/],
       exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
       // 自定义组件解析器，用于指定如何解析组件名到实际路径。
