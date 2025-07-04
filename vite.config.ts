@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -46,83 +47,16 @@ export default defineConfig({
             g[1].toUpperCase()
           )
         })
-
-        // example of deleting routes
-        // if (route.name.startsWith('/users')) {
-        //   route.delete()
-        // }
-
-        if (route.name === '/[name]') {
-          route.addAlias('/hello-vite-:name')
-        }
-
-        // if (route.name === '/deep/nesting') {
-        //   const children = [...route]
-        //   children.forEach((child) => {
-        //     // TODO: remove one node while copying the children to its parent
-        //   })
-        // }
-
-        // example moving a route (without its children to the root)
-        if (route.fullPath.startsWith('/deep/nesting/works/too')) {
-          route.parent!.insert(
-            '/at-root-but-from-nested',
-            route.components.get('default')!
-          )
-          // TODO: make it easier to access the root
-          let root = route
-          while (root.parent) {
-            root = root.parent
-          }
-          route.delete()
-          const newRoute = root.insert(
-            '/custom/page',
-            route.components.get('default')!
-          )
-          // newRoute.components.set('default', route.components.get('default')!)
-          newRoute.meta = {
-            'custom-meta': 'works',
-          }
-        }
       },
       beforeWriteFiles(root) {
         // root.insert('/from-root', join(__dirname, './src/pages/index.vue'))
       },
-      routesFolder: [
-        // can add multiple routes folders
-        {
-          src: 'src/pages',
-        },
-        {
-          src: 'src/views',
-        },
-        {
-          src: 'src/docs',
-          path: 'docs/[lang]/',
-          // doesn't take into account files directly at src/docs, only subfolders
-          filePatterns: ['*/**'],
-          // ignores .vue files
-          extensions: ['.md'],
-        },
-        {
-          src: 'src/features',
-          filePatterns: '*/pages/**/*',
-          path: (file) => {
-            const prefix = 'src/features'
-            // +1 for the starting slash
-            file = file
-              .slice(file.lastIndexOf(prefix) + prefix.length + 1)
-              .replace('/pages', '')
-            // console.log('👉 FILE', file)
-            return file
-          },
-        },
-      ],
       exclude: RouteGenerateExclude,
     }),
     vue(),
     vueJsx(),
     vueDevTools(),
+    tailwindcss(),
     visualizer({ gzipSize: true, brotliSize: true }),
     Markdown({
       markdownItOptions: {
@@ -146,42 +80,8 @@ export default defineConfig({
       imports: [
         'vue',
         'vue-router',
-        // custom
-        {
-          '@vueuse/core': [
-            // named imports
-            'useMouse', // import { useMouse } from '@vueuse/core',
-            // alias
-            ['useFetch', 'useMyFetch'], // import { useFetch as useMyFetch } from '@vueuse/core',
-          ],
-          'axios': [
-            // default imports
-            ['default', 'axios'], // import { default as axios } from 'axios',
-          ],
-          '[package-name]': [
-            '[import-names]',
-            // alias
-            ['[from]', '[alias]'],
-          ],
-        },
-        // example type import
-        {
-          from: 'vue-router',
-          imports: ['RouteLocationRaw'],
-          type: true,
-        },
         VueRouterAutoImports,
       ], // 自动加载 vue,vue-router api
-      // Array of strings of regexes that contains imports meant to be filtered out.
-      ignore: [
-        'useMouse',
-        'useFetch'
-      ],
-      dirsScanOptions: {
-        filePatterns: ['*.ts'], // Glob patterns for matching files
-        fileFilter: file => file.endsWith('.ts'), // Filter files
-        types: true // Enable auto import the types under the directories
-      },
       dirs: [
         'src/composables/**/*.ts',
         'src/enum/**/*.ts',
@@ -205,6 +105,7 @@ export default defineConfig({
       // 指定全局组件的命名空间。例如 global::MyComponent 会从全局命名空间解析。适用于无需手动导入的全局组件。
       globalNamespaces: ['global'],
       include: [/\.vue($|\?)/, /\.md($|\?)/],
+      exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
       // 自定义组件解析器，用于指定如何解析组件名到实际路径。
       resolvers: [
         // (name) => {
@@ -217,6 +118,7 @@ export default defineConfig({
           componentPrefix: 'i',
         }),
       ],
+      directives: true,
       // 调试模式下打印解析到的组件信息。开发时会在控制台输出组件名和路径的映射关系。帮助确认组件是否被正确识别。
       dumpComponentsInfo: true,
     }),
