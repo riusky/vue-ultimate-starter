@@ -51,6 +51,7 @@
     "@iconify-json/simple-icons": "^1.2.40",
     "@iconify/vue": "^5.0.0",
     "tailwindcss": "^4.1.11",
+    "@faker-js/faker": "^9.9.0",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/vue-query": "^5.81.2",
     "@tanstack/vue-table": "^8.21.3",
