@@ -15,6 +15,7 @@ import Layouts from 'vite-plugin-vue-layouts';
 import Markdown from 'unplugin-vue-markdown/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import prism from 'markdown-it-prism'
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import { join } from 'node:path'
 const RouteGenerateExclude = [
   '**/ignored/**',
@@ -26,10 +27,15 @@ const RouteGenerateExclude = [
   '**/data/**',
   '**/types/**'
 ]
+import {
+  pathResolve,
+} from "./build/utils";
+import yaml from '@rollup/plugin-yaml';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    yaml(),
     VueRouter({
       extensions: ['.page.vue', '.vue'],
       importMode: 'async',
@@ -54,6 +60,9 @@ export default defineConfig({
       exclude: RouteGenerateExclude,
     }),
     vue(),
+    VueI18nPlugin({
+        include: [pathResolve("./src/plugins/i18n/locales/**")],
+    }),
     vueJsx(),
     vueDevTools(),
     tailwindcss(),

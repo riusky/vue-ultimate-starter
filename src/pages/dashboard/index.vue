@@ -14,6 +14,22 @@ const tabs = ref([
 ])
 
 const activeTab = ref(tabs.value[0].value)
+
+import { transformI18n, setLocale, getLocale } from '@/plugins/i18n'
+
+// 获取当前语言
+const currentLang = getLocale()
+
+// 使用翻译
+const title = transformI18n('buttons.theme')
+
+// 切换语言
+const changeLanguage = (lang: string) => {
+  console.log(currentLang)
+  setLocale(lang)
+  console.log(currentLang)
+}
+
 </script>
 
 <template>
@@ -24,11 +40,14 @@ const activeTab = ref(tabs.value[0].value)
   >
     <template #actions>
       <Button
-        @click="() => toast('hello', {
-          position: 'top-center',
-        })"
+        @click="changeLanguage('en')"
       >
-        Download
+        英文 {{ transformI18n('buttons.theme') }}
+      </Button>
+            <Button
+        @click="changeLanguage('zh-CN')"
+      >
+        中文 {{ transformI18n('buttons.theme') }}
       </Button>
     </template>
 

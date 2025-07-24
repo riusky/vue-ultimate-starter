@@ -12,6 +12,6 @@ export function setupPlugins(app: App) {
   setupNProgress()
   setupAutoAnimate(app)
   setupTanstackVueQuery(app)
-  setupI18n(app)
   setupPinia(app)
+  setupI18n(app)
 }

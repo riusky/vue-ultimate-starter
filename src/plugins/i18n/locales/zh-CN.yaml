@@ -1,0 +1,8 @@
+buttons:
+  theme: "主题"
+  search: "搜索"
+  add: "添加"
+  showfields: "显示字段"
+  update: "更新"
+  delete: "删除"
+  actions: "操作"

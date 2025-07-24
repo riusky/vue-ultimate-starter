@@ -1,0 +1,8 @@
+buttons:
+  theme: "theme"
+  search: "search"
+  add: "add"
+  showfields: "showfields"
+  update: "update"
+  delete: "delete"
+  actions: "actions"
