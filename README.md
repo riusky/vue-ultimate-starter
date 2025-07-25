@@ -8,6 +8,16 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
+- Install the front-end packaging project bun
+> https://bun.com/
+
+```shell
+# Windows
+powershell -c "irm bun.sh/install.ps1 | iex"
+# Linux&MacOS
+curl -fsSL https://bun.sh/install | bash
+```
+
 ```sh
 bun install
 ```
