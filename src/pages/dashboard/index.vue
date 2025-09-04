@@ -38,18 +38,6 @@ const changeLanguage = (lang: string) => {
     description="workspace description"
     sticky
   >
-    <template #actions>
-      <Button
-        @click="changeLanguage('en')"
-      >
-        英文 {{ transformI18n('common.buttons.theme') }}
-      </Button>
-            <Button
-        @click="changeLanguage('zh-CN')"
-      >
-        中文 {{ transformI18n('common.buttons.theme') }}
-      </Button>
-    </template>
 
     <UiTabs :default-value="activeTab" class="w-full">
       <UiTabsList>
