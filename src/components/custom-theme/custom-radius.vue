@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 
 import { RADIUS, useThemeStore } from '@/stores/theme'
+import { transformI18n } from '@/plugins/i18n'
 
 const themeStore = useThemeStore()
 const { setRadius } = themeStore
@@ -15,7 +16,7 @@ watchEffect(() => {
 <template>
   <div class="space-y-1.5 pt-6">
     <UiLabel for="radius" class="text-xs">
-      Radius
+      {{ transformI18n('common.interfaceLabel.radius') }}
     </UiLabel>
     <div class="grid grid-cols-5 gap-2 py-1.5">
       <UiButton

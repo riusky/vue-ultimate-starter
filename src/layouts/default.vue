@@ -5,6 +5,8 @@ import AppSidebar from '@/components/app-sidebar/index.vue'
 import CommandMenuPanel from '@/components/command-menu-panel/index.vue'
 import ThemePopover from '@/components/custom-theme/theme-popover.vue'
 import ToggleTheme from '@/components/toggle-theme.vue'
+import LangToggle from '@/components/toggle-lang.vue'
+import LocalTime from '@/components/local-time.vue'
 
 const defaultOpen = useCookies(['sidebar:state'])
 </script>
@@ -19,6 +21,15 @@ const defaultOpen = useCookies(['sidebar:state'])
         <UiSeparator orientation="vertical" class="h-6" />
         <CommandMenuPanel />
         <div class="ml-auto flex items-center space-x-4">
+              <LocalTime
+      date-style="full"
+      time-style="full"
+      :showWeekday="true"
+      :showSeconds="true"
+      :hour12="true"
+    />
+
+          <LangToggle />
           <ToggleTheme />
           <ThemePopover />
         </div>

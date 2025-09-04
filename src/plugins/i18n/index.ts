@@ -18,18 +18,49 @@ const loadLocaleMessages = () => {
   return messages
 }
 
+// 监听 localStorage 变化以实现多标签页同步
+window.addEventListener('storage', (event) => {
+  if (event.key === 'locale' && event.newValue) {
+    currentLocale.value = event.newValue
+    if ('value' in i18n.global.locale) {
+      i18n.global.locale.value = event.newValue
+    }
+  }
+})
+
+// 确保在页面加载时也监听 visibilitychange
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    const savedLocale = localStorage.getItem('locale')
+    if (savedLocale && savedLocale !== currentLocale.value) {
+      currentLocale.value = savedLocale
+    }
+  }
+})
+
 // 2. 语言状态管理
 const getDefaultLocale = (): string => {
-  return localStorage.getItem('locale') || 'zh-CN'
+  return localStorage.getItem('locale') || 'en'
 }
 
-const currentLocale = ref(getDefaultLocale())
+// const currentLocale = ref(getDefaultLocale())
 
 export const setLocale = (newLocale: string) => {
   currentLocale.value = newLocale
   localStorage.setItem('locale', newLocale)
-}
 
+  // 手动触发 storage 事件以确保当前页也能响应
+  window.dispatchEvent(
+    new StorageEvent('storage', {
+      key: 'locale',
+      newValue: newLocale,
+      oldValue: currentLocale.value,
+      storageArea: localStorage
+    })
+  )
+}
+// 在导出部分添加
+export const currentLocale = ref(getDefaultLocale())
 export const getLocale = (): string => currentLocale.value
 
 // 3. 创建 i18n 实例（带完整类型声明）

@@ -42,12 +42,12 @@ const changeLanguage = (lang: string) => {
       <Button
         @click="changeLanguage('en')"
       >
-        英文 {{ transformI18n('buttons.theme') }}
+        英文 {{ transformI18n('common.buttons.theme') }}
       </Button>
             <Button
         @click="changeLanguage('zh-CN')"
       >
-        中文 {{ transformI18n('buttons.theme') }}
+        中文 {{ transformI18n('common.buttons.theme') }}
       </Button>
     </template>
 

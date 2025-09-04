@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useColorMode } from '@vueuse/core'
 import { Moon, Sun, SunMoon } from 'lucide-vue-next'
+import { transformI18n } from '@/plugins/i18n'
 
 const mode = useColorMode()
 </script>
@@ -17,15 +18,15 @@ const mode = useColorMode()
     <UiDropdownMenuContent align="end">
       <UiDropdownMenuItem @click="mode = 'light'">
         <Sun />
-        Light
+        {{ transformI18n('common.theme.light') }}
       </UiDropdownMenuItem>
       <UiDropdownMenuItem @click="mode = 'dark'">
         <Moon />
-        Dark
+        {{ transformI18n('common.theme.dark') }}
       </UiDropdownMenuItem>
       <UiDropdownMenuItem @click="mode = 'auto'">
         <SunMoon />
-        System
+        {{ transformI18n('common.theme.auto') }}
       </UiDropdownMenuItem>
     </UiDropdownMenuContent>
   </UiDropdownMenu>
