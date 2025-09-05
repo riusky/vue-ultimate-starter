@@ -12,6 +12,7 @@ defineProps<LayoutHeaderProps>()
       :title="title"
       :description="description"
       :sticky="sticky"
+      class="text-primary"
     >
       <template #actions>
         <slot name="actions" />
