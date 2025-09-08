@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-// import Loading from '@/components/loading.vue'
-import { Toaster } from '@/components/ui/sonner'
-
-// 每次加载时，移除所有主题类并添加当前主题类
 import { storeToRefs } from 'pinia'
+
+import Loading from '@/components/loading.vue'
+import { Toaster } from '@/components/ui/sonner'
 import { THEMES, useThemeStore } from '@/stores/theme'
+
 const themeStore = useThemeStore()
-const { theme: currentTheme } = storeToRefs(themeStore)
-document.documentElement.classList.remove(...THEMES.map(theme => `theme-${theme}`))
-document.documentElement.classList.add(`theme-${currentTheme.value}`)
+const { theme: t, radius } = storeToRefs(themeStore)
+
+watchEffect(() => {
+  document.documentElement.classList.remove(...THEMES.map(theme => `theme-${theme}`))
+  document.documentElement.classList.add(`theme-${t.value}`)
+  document.documentElement.style.setProperty('--radius', `${radius.value}rem`)
+})
 </script>
 
 <template>

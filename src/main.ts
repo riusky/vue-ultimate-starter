@@ -7,9 +7,11 @@ import '@/assets/index.css'
 import '@/assets/scrollbar.css'
 import '@/assets/themes.css'
 // import '@/assets/chart-theme.css'
-import '@/assets/themes-combined.css'
 import 'vue-sonner/style.css' // vue sonner style
-import '@/utils/env.ts'
+import '@/assets/themes-combined.css'
+
+import '@/utils/env'
+
 import { useColorMode } from '@vueuse/core'
 
 // 初始化主题（默认跟随系统偏好，可手动设置 'light' 或 'dark'）

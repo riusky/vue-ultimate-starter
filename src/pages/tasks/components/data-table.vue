@@ -1,109 +1,53 @@
 <script setup lang="ts">
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-} from '@tanstack/vue-table'
+import { Trash2Icon } from 'lucide-vue-next'
 
-import {
-  FlexRender,
-  getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useVueTable,
-} from '@tanstack/vue-table'
-import { ref } from 'vue'
+import type { DataTableProps } from '@/components/data-table/types'
 
-import DataTablePagination from '@/components/data-table/table-pagination.vue'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { valueUpdater } from '@/lib/utils'
+import BulkActions from '@/components/data-table/bulk-actions.vue'
+import DataTable from '@/components/data-table/data-table.vue'
+import { generateVueTable } from '@/components/data-table/use-generate-vue-table'
 
 import type { Task } from '../data/schema'
 
 import DataTableToolbar from './data-table-toolbar.vue'
+import TaskDeleteBatch from './task-delete-batch.vue'
 
-interface DataTableProps {
-  columns: ColumnDef<Task, any>[]
-  data: Task[]
-}
-const props = defineProps<DataTableProps>()
+const props = defineProps<DataTableProps<Task>>()
+const table = generateVueTable<Task>(props)
 
-const sorting = ref<SortingState>([])
-const columnFilters = ref<ColumnFiltersState>([])
-const columnVisibility = ref<VisibilityState>({})
-const rowSelection = ref({})
-
-const table = useVueTable({
-  get data() { return props.data },
-  get columns() { return props.columns },
-  state: {
-    get sorting() { return sorting.value },
-    get columnFilters() { return columnFilters.value },
-    get columnVisibility() { return columnVisibility.value },
-    get rowSelection() { return rowSelection.value },
-  },
-  enableRowSelection: true,
-  onSortingChange: updaterOrValue => valueUpdater(updaterOrValue, sorting),
-  onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
-  onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
-  onRowSelectionChange: updaterOrValue => valueUpdater(updaterOrValue, rowSelection),
-  getCoreRowModel: getCoreRowModel(),
-  getFilteredRowModel: getFilteredRowModel(),
-  getPaginationRowModel: getPaginationRowModel(),
-  getSortedRowModel: getSortedRowModel(),
-  getFacetedRowModel: getFacetedRowModel(),
-  getFacetedUniqueValues: getFacetedUniqueValues(),
-})
+const taskDeleteBatchOpen = ref(false)
 </script>
 
 <template>
-  <div class="space-y-4">
-    <DataTableToolbar :table="table" class="w-full overflow-x-auto" />
-    <div class="border rounded-md">
-      <Table>
-        <TableHeader>
-          <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-            <TableHead v-for="header in headerGroup.headers" :key="header.id">
-              <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header" :props="header.getContext()" />
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <template v-if="table.getRowModel().rows?.length">
-            <TableRow
-              v-for="row in table.getRowModel().rows"
-              :key="row.id"
-              :data-state="row.getIsSelected() && 'selected'"
-            >
-              <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
-                <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
-              </TableCell>
-            </TableRow>
-          </template>
+  <BulkActions entity-name="task" :table>
+    <UiTooltip>
+      <UiTooltipTrigger as-child>
+        <UiButton
+          variant="destructive"
+          size="icon"
+          class="size-8"
+          aria-label="Delete selected tasks"
+          title="Delete selected tasks"
+          @click="taskDeleteBatchOpen = true"
+        >
+          <Trash2Icon />
+          <span class="sr-only">Delete selected tasks</span>
+        </UiButton>
+      </UiTooltipTrigger>
+      <UiTooltipContent>
+        <p>Delete selected tasks</p>
+      </UiTooltipContent>
+    </UiTooltip>
 
-          <TableRow v-else>
-            <TableCell
-              :colspan="columns.length"
-              class="h-24 text-center"
-            >
-              No results.
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+    <TaskDeleteBatch
+      v-model:open="taskDeleteBatchOpen"
+      :table
+    />
+  </BulkActions>
 
-    <DataTablePagination :table="table" />
-  </div>
+  <DataTable :columns :table :data :loading>
+    <template #toolbar>
+      <DataTableToolbar :table="table" class="w-full overflow-x-auto" />
+    </template>
+  </DataTable>
 </template>

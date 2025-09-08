@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import type { DrawerDescriptionProps } from 'vaul-vue'
-import type { HTMLAttributes } from 'vue'
-import { reactiveOmit } from '@vueuse/core'
+import type { HtmlHTMLAttributes } from 'vue'
 import { DrawerDescription } from 'vaul-vue'
+import { computed } from 'vue'
 import { cn } from '@/lib/utils'
 
-const props = defineProps<DrawerDescriptionProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<DrawerDescriptionProps & { class?: HtmlHTMLAttributes['class'] }>()
 
-const delegatedProps = reactiveOmit(props, 'class')
+const delegatedProps = computed(() => {
+  const { class: _, ...delegated } = props
+
+  return delegated
+})
 </script>
 
 <template>

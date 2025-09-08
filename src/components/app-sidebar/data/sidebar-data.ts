@@ -16,14 +16,19 @@ const user: User = {
 
 const teams: Team[] = [
   {
-    name: 'ECG_LEAD_II',
-    logo: AudioWaveform,
-    plan: 'ECG waveform samples',
+    name: 'Acme Inc',
+    logo: GalleryVerticalEnd,
+    plan: 'Enterprise',
   },
   {
-    name: 'ECG_LEAD_III',
+    name: 'Acme Corp.',
     logo: AudioWaveform,
-    plan: 'ECG waveform samples',
+    plan: 'Startup',
+  },
+  {
+    name: 'Evil Corp.',
+    logo: Command,
+    plan: 'Free',
   },
 ]
 

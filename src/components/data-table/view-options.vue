@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 import type { Table } from '@tanstack/vue-table'
 
-import { Settings2 } from 'lucide-vue-next'
+import { RefreshCcw, Settings2 } from 'lucide-vue-next'
 
 interface DataTableViewOptionsProps {
   table: Table<T>
@@ -14,6 +14,10 @@ const columns = computed(() => props.table.getAllColumns()
     column =>
       typeof column.accessorFn !== 'undefined' && column.getCanHide(),
   ))
+
+function resetColumnVisible() {
+  columns.value.forEach(column => column.toggleVisibility(true))
+}
 </script>
 
 <template>
@@ -25,7 +29,7 @@ const columns = computed(() => props.table.getAllColumns()
         class="hidden h-8 ml-auto lg:flex"
       >
         <Settings2 class="size-4 mr-2" />
-        View
+        Columns View
       </UiButton>
     </UiDropdownMenuTrigger>
     <UiDropdownMenuContent align="end" class="w-[150px]">
@@ -41,6 +45,15 @@ const columns = computed(() => props.table.getAllColumns()
       >
         {{ column.id }}
       </UiDropdownMenuCheckboxItem>
+
+      <UiDropdownMenuSeparator />
+      <UiDropdownMenuItem
+        class="capitalize"
+        @click="resetColumnVisible"
+      >
+        <RefreshCcw />
+        Reset
+      </UiDropdownMenuItem>
     </UiDropdownMenuContent>
   </UiDropdownMenu>
 </template>
