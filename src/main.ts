@@ -10,7 +10,13 @@ import '@/assets/themes.css'
 import '@/assets/themes-combined.css'
 import 'vue-sonner/style.css' // vue sonner style
 import '@/utils/env.ts'
+import { useColorMode } from '@vueuse/core'
 
+// 初始化主题（默认跟随系统偏好，可手动设置 'light' 或 'dark'）
+useColorMode({
+  initialValue: 'dark', // 默认主题（可选 'auto' | 'light' | 'dark'）
+  storageKey: 'vueuse-color-scheme', // localStorage 的 key（可选）
+})
 
 function bootstrap() {
   const app = createApp(App)

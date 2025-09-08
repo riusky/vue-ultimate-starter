@@ -1,21 +1,18 @@
 <script lang="ts" setup>
 import { toast } from 'vue-sonner'
-
+import { transformI18n, setLocale, getLocale } from '@/plugins/i18n'
 import Page from '@/components/global-layout/basic-page.vue'
 import { Button } from '@/components/ui/button'
-
 import OverviewContent from './components/overview-content.vue'
 
 const tabs = ref([
-  { name: 'Overview', value: 'overview' },
-  { name: 'Analytics', value: 'analytics', disabled: true },
-  { name: 'Reports', value: 'reports', disabled: true },
-  { name: 'Notifications', value: 'notifications', disabled: true },
+  { name: transformI18n('ecg.tabs.overview'), value: 'overview' },
+  { name: transformI18n('ecg.tabs.analytics'), value: 'analytics', disabled: true },
+  { name: transformI18n('ecg.tabs.reports'), value: 'reports', disabled: true },
+  { name: transformI18n('ecg.tabs.notifications'), value: 'notifications', disabled: true },
 ])
 
 const activeTab = ref(tabs.value[0].value)
-
-import { transformI18n, setLocale, getLocale } from '@/plugins/i18n'
 
 // 获取当前语言
 const currentLang = getLocale()
@@ -29,34 +26,21 @@ const changeLanguage = (lang: string) => {
   setLocale(lang)
   console.log(currentLang)
 }
-
 </script>
 
 <template>
   <Page
-    title="workspace"
-    description="workspace description"
+    :title="transformI18n('ecg.page.title')"
+    :description="transformI18n('ecg.page.description')"
     sticky
   >
-    <template #actions>
-      <Button
-        @click="changeLanguage('en')"
-      >
-        英文 {{ transformI18n('common.buttons.theme') }}
-      </Button>
-            <Button
-        @click="changeLanguage('zh-CN')"
-      >
-        中文 {{ transformI18n('common.buttons.theme') }}
-      </Button>
-    </template>
-
-    <UiTabs :default-value="activeTab" class="w-full">
+    <UiTabs :default-value="activeTab" class="w-full text-primary">
       <UiTabsList>
         <UiTabsTrigger
           v-for="tab in tabs" :key="tab.value"
           :value="tab.value"
           :disabled="tab.disabled"
+          class="text-primary"
         >
           {{ tab.name }}
         </UiTabsTrigger>
@@ -69,5 +53,4 @@ const changeLanguage = (lang: string) => {
 </template>
 
 <style>
-
 </style>

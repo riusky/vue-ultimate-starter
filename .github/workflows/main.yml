@@ -29,17 +29,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+      - name: Install Linux dependencies (x86)
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf
 
-      - name: setup node
-        uses: actions/setup-node@v4
+      - name: Install Linux dependencies (ARM)
+        if: matrix.platform == 'ubuntu-22.04-arm'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            pkg-config \
+            xdg-utils
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: lts/*
-          cache: 'yarn' # Set this to npm, yarn or pnpm.
+          bun-version: latest
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
@@ -54,7 +70,8 @@ jobs:
 
       - name: install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: yarn install # change this to npm or pnpm depending on which one you use.
+        run: bun install
+
 
       - uses: tauri-apps/tauri-action@v0
         env:
