@@ -24,7 +24,7 @@ const { contentLayout } = storeToRefs(themeStore)
     <AppSidebar />
     <UiSidebarInset class="w-full max-w-full peer-data-[state=collapsed]:w-[calc(100%-var(--sidebar-width-icon)-1rem)] peer-data-[state=expanded]:w-[calc(100%-var(--sidebar-width))]">
       <header
-        class="flex items-center gap-3 sm:gap-4 h-12 p-4 pr-2 shrink-0 transition-[width,height] ease-linear bg-sidebar text-sidebar-foreground"
+        class="sticky top-0 z-50 flex items-center gap-3 sm:gap-4 h-12 p-4 pr-2 shrink-0 transition-[width,height] ease-linear bg-sidebar text-sidebar-foreground"
       >
         <UiSidebarTrigger class="-ml-1" />
         <UiSeparator orientation="vertical" class="h-6" />

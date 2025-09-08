@@ -24,7 +24,7 @@ bun.lockb
 
 # unplugin-vue-components
 .components-info.json
-src/types/
+# src/types/
 
 # Editor directories and files
 .vscode/*
