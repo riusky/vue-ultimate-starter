@@ -1,2 +1,8 @@
 #!/usr/bin/env sh
+# 运行类型检查
+# 检查是否有 TypeScript 文件变更
+if git diff --cached --name-only | grep -q '\.ts$'; then
+  bun run type-check || exit 1
+fi
+# 运行 lint-staged
 bunx lint-staged || exit 1
