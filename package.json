@@ -26,7 +26,7 @@
     "format": "prettier --write src/",
     "tauri": "tauri",
     "prepare": "husky",
-    "commit": "git add . && cz",
+    "commit": "cz",
     "commit:quick": "git commit -m"
   },
   "dependencies": {

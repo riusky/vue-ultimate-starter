@@ -15,7 +15,6 @@ export default {
     // "subject-case": [2, "always", "lower-case"], // 描述小写
     // "subject-full-stop": [2, "never", "."], // 描述结尾禁止句号
     'type-case': [2, 'always', 'lower-case'], // 类型小写
-    'type-leading-blank': [2, 'always'], // 类型后空格
 
     // 内容规则
     'subject-empty': [2, 'never'], // 禁止空描述

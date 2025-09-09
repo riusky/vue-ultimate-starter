@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname "$0")/_/husky.sh"
-
-# 当通过 commitizen 提交时跳过常规提示
-[ -n "$CZ_TYPE" ] && exit 0
-
-# 否则显示常规提交提醒
-echo "ℹ️  推荐使用 'bun run commit' 启动交互式提交工具"
