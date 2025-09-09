@@ -2,7 +2,7 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "env.d.ts",
-    "src/**/*",
+    // "src/**/*",
     "src/**/*.vue",
     "src/**/*.ts",
     "src/**/*.tsx"
@@ -19,7 +19,8 @@
       ]
     },
     "types": [
-      "unplugin-vue-router/client",
+      "vite/client", 
+      "unplugin-vue-router/client", 
       "vite-plugin-vue-layouts/client"
     ],
     "allowImportingTsExtensions": true,

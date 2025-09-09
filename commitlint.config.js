@@ -12,8 +12,6 @@ export default {
     'body-leading-blank': [2, 'always'], // 正文前空行
     'footer-leading-blank': [1, 'always'], // 脚注前空行
     'header-max-length': [2, 'always', 108], // 标题最大长度
-    // "subject-case": [2, "always", "lower-case"], // 描述小写
-    // "subject-full-stop": [2, "never", "."], // 描述结尾禁止句号
     'type-case': [2, 'always', 'lower-case'], // 类型小写
 
     // 内容规则

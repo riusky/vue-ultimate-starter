@@ -11,12 +11,11 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 import IconsResolver from 'unplugin-icons/resolver'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import AutoImport from 'unplugin-auto-import/vite'
-import Layouts from 'vite-plugin-vue-layouts';
+import Layouts from 'vite-plugin-vue-layouts'
 import Markdown from 'unplugin-vue-markdown/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import prism from 'markdown-it-prism'
-import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
-import { join } from 'node:path'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 const RouteGenerateExclude = [
   '**/ignored/**',
   '**/__*',
@@ -25,14 +24,12 @@ const RouteGenerateExclude = [
   '**/components/**',
   '**/layouts/**',
   '**/data/**',
-  '**/types/**'
+  '**/types/**',
 ]
-import {
-  pathResolve,
-} from "./build/utils";
-import yaml from '@rollup/plugin-yaml';
+import { pathResolve } from './build/utils'
+import yaml from '@rollup/plugin-yaml'
 
-const host = process.env.TAURI_DEV_HOST;
+const host = process.env.TAURI_DEV_HOST
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -51,9 +48,7 @@ export default defineConfig({
       extendRoute(route) {
         route.params.forEach((param) => {
           // transform kebab-case to camelCase
-          param.paramName = param.paramName.replace(/-([a-z])/g, (g) =>
-            g[1].toUpperCase()
-          )
+          param.paramName = param.paramName.replace(/-([a-z])/g, (g) => g[1].toUpperCase())
         })
       },
       beforeWriteFiles(root) {
@@ -63,19 +58,16 @@ export default defineConfig({
     }),
     vue(),
     VueI18nPlugin({
-        include: [pathResolve("./src/plugins/i18n/locales/**")],
+      include: [pathResolve('./src/plugins/i18n/locales/**')],
     }),
     vueJsx(),
     vueDevTools(),
     tailwindcss(),
     visualizer({ gzipSize: true, brotliSize: true }),
     Markdown({
-      markdownItOptions: {
-      },
+      markdownItOptions: {},
       headEnabled: true,
-      markdownItUses: [
-        prism,
-      ],
+      markdownItUses: [prism],
     }),
     Layouts({
       defaultLayout: 'default',
@@ -88,16 +80,8 @@ export default defineConfig({
         /\.vue\.[tj]sx?\?vue/, // .vue (vue-loader with experimentalInlineMatchResource enabled)
         /\.md$/, // .md
       ],
-      imports: [
-        'vue',
-        'vue-router',
-        VueRouterAutoImports,
-      ], // 自动加载 vue,vue-router api
-      dirs: [
-        'src/composables/**/*.ts',
-        'src/enum/**/*.ts',
-        'src/store/**/*.ts',
-      ], // 自动加载配置里的文件
+      imports: ['vue', 'vue-router', VueRouterAutoImports], // 自动加载 vue,vue-router api
+      dirs: ['src/composables/**/*.ts', 'src/enum/**/*.ts', 'src/store/**/*.ts'], // 自动加载配置里的文件
       // Include auto-imported packages in Vite's `optimizeDeps` options
       // Recommend to enable
       viteOptimizeDeps: true,
@@ -107,9 +91,7 @@ export default defineConfig({
       dts: 'src/types/auto-import.d.ts', // 类型提示文件
     }),
     Components({
-      dirs: [
-        'src/components',
-      ],
+      dirs: ['src/components'],
       extensions: ['vue', 'md', 'svg'],
       collapseSamePrefixes: true,
       // 启用目录名作为组件的命名空间。避免不同目录下同名组件的冲突。
@@ -147,19 +129,19 @@ export default defineConfig({
     host: host || false,
     hmr: host
       ? {
-          protocol: "ws",
+          protocol: 'ws',
           host,
           port: 1421,
         }
       : undefined,
     watch: {
       // 3. tell Vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
+      ignored: ['**/src-tauri/**'],
     },
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 })

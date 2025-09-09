@@ -12,44 +12,8 @@ const patientStatus = ref({
   diagnosis: '心律失常',
   attendingDoctor: '李医生',
   status: 'stable',
-  lastUpdate: '10:25:47'
+  lastUpdate: '10:25:47',
 })
-
-// 警报列表
-const alerts = ref([
-  {
-    id: 1,
-    type: 'heartRate',
-    level: 'warning',
-    message: 'heartRate',
-    time: '10:20:32',
-    resolved: false
-  },
-  {
-    id: 2,
-    type: 'bloodPressure',
-    level: 'warning',
-    message: 'bloodPressure',
-    time: '09:45:15',
-    resolved: true
-  },
-  {
-    id: 3,
-    type: 'oxygen',
-    level: 'info',
-    message: 'oxygen',
-    time: '10:05:22',
-    resolved: true
-  }
-])
-
-// 处理警报解决
-const resolveAlert = (id: number) => {
-  const alert = alerts.value.find(a => a.id === id)
-  if (alert) {
-    alert.resolved = true
-  }
-}
 </script>
 
 <template>
@@ -63,39 +27,53 @@ const resolveAlert = (id: number) => {
       <UiCardContent class="grid gap-4">
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.name') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ transformI18n('ecg.patient.fields.name') }}
+            </p>
             <p class="font-medium text-primary">{{ patientStatus.name }}</p>
           </div>
           <div>
-            <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.age') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ transformI18n('ecg.patient.fields.age') }}
+            </p>
             <p class="font-medium text-primary">{{ patientStatus.age }}</p>
           </div>
           <div>
-            <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.gender') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ transformI18n('ecg.patient.fields.gender') }}
+            </p>
             <p class="font-medium text-primary">{{ patientStatus.gender }}</p>
           </div>
           <div>
-            <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.patientId') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ transformI18n('ecg.patient.fields.patientId') }}
+            </p>
             <p class="font-medium text-primary">{{ patientStatus.patientId }}</p>
           </div>
         </div>
-        
+
         <div class="space-y-2">
-          <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.diagnosis') }}</p>
+          <p class="text-sm text-muted-foreground">
+            {{ transformI18n('ecg.patient.fields.diagnosis') }}
+          </p>
           <p class="font-medium text-primary">{{ patientStatus.diagnosis }}</p>
         </div>
-        
+
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.doctor') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ transformI18n('ecg.patient.fields.doctor') }}
+            </p>
             <p class="font-medium text-primary">{{ patientStatus.attendingDoctor }}</p>
           </div>
           <div>
-            <p class="text-sm text-muted-foreground">{{ transformI18n('ecg.patient.fields.admissionDate') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ transformI18n('ecg.patient.fields.admissionDate') }}
+            </p>
             <p class="font-medium text-primary">{{ patientStatus.admissionDate }}</p>
           </div>
         </div>
-        
+
         <div class="flex items-center gap-2">
           <UiBadge :variant="patientStatus.status === 'stable' ? 'default' : 'destructive'">
             {{ transformI18n(`ecg.status.${patientStatus.status}`) }}

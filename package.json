@@ -27,7 +27,8 @@
     "tauri": "tauri",
     "prepare": "husky",
     "commit": "cz",
-    "commit:quick": "git commit -m"
+    "commit:quick": "git commit -m",
+    "commit-and-push": "bun run commit && git push origin $(git branch --show-current)"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
@@ -78,7 +79,6 @@
     "@iconify/vue": "^5.0.0",
     "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@playwright/test": "^1.53.1",
-    "@tailwindcss/vite": "^4.1.12",
     "@tanstack/eslint-plugin-query": "^5.83.1",
     "@tanstack/vue-query-devtools": "^5.85.5",
     "@tauri-apps/cli": "^2",
